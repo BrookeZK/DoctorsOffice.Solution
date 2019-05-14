@@ -6,14 +6,13 @@ using System;
 namespace DoctorsOffice.Tests
 {
   [TestClass]
-  public class DoctorTest //: IDisposable
+  public class DoctorTest : IDisposable
   {
 
-    // public void Dispose()
-    // {
-    //   Patient.ClearAll();
-    //   Doctor.ClearAll();
-    // }
+    public void Dispose()
+    {
+      Doctor.ClearAll();
+    }
 
     public DoctorTest()
     {
@@ -55,9 +54,9 @@ namespace DoctorsOffice.Tests
       //Assert
       Assert.AreEqual(name2, result);
     }
+
     [TestMethod]
-    public void
-    GetSpecialty_ReturnsSpecialty_String()
+    public void GetSpecialty_ReturnsSpecialty_String()
     {
       string specialty = "noses";
       Doctor newDoctor = new Doctor("Dr. Luden", specialty, 2);
@@ -66,22 +65,22 @@ namespace DoctorsOffice.Tests
 
       Assert.AreEqual(specialty, result);
     }
+
     [TestMethod]
-    public void
-    SetSpecialty_SetsSpecialtyPropertyToNewValue_String()
+    public void SetSpecialty_SetsSpecialtyPropertyToNewValue_String()
     {
       //Arrange
       string specialty1 = "fingers";
-      Doctor newDoctor = new Doctor("Dr. Swarz", specialty1,23);
+      Doctor newDoctor = new Doctor("Dr. Swarz", specialty1, 23);
       string specialty2 = "hair";
 
       string result = newDoctor.Specialty = specialty2;
 
       Assert.AreEqual(specialty2, result);
     }
+
     [TestMethod]
-    public void
-    GetYearsExp_ReturnsYearsExp_Int()
+    public void GetYearsExp_ReturnsYearsExp_Int()
     {
       int yearsExp = 5;
       Doctor newDoctor = new Doctor("Dr. Willow", "teeth", yearsExp);
@@ -90,9 +89,9 @@ namespace DoctorsOffice.Tests
 
       Assert.AreEqual(yearsExp, result);
     }
+
     [TestMethod]
-    public void
-    SetYearsExp_SetsYearsExpPropertyToNewValue_Int()
+    public void SetYearsExp_SetsYearsExpPropertyToNewValue_Int()
     {
       int yearsExp = 7;
       Doctor newDoctor = new Doctor("Dr. Cookie", "stomach", yearsExp);
@@ -102,5 +101,59 @@ namespace DoctorsOffice.Tests
 
       Assert.AreEqual(yearsExp2, result);
     }
+
+    [TestMethod]
+    public void GetId_ReturnsId_Int()
+    {
+      int newId = 2;
+      Doctor newDoctor = new Doctor("Dr. Cookie", "stomach", 12, newId);
+
+      int result = newDoctor.Id;
+
+      Assert.AreEqual(newId, result);
+    }
+
+    [TestMethod]
+    public void Equals_ReturnsTrueIfPropertiesAreTheSame_Doctor()
+    {
+      Doctor firstDoctor = new Doctor("Dr. Cookie", "stomach", 12);
+      Doctor secondDoctor = new Doctor("Dr. Cookie", "stomach", 12);
+      Doctor thirdDoctor = new Doctor("Dr. Cookie", "stomach", 11);
+
+
+      Assert.AreEqual(firstDoctor, secondDoctor);
+    }
+
+    [TestMethod]
+    public void GetAll_ReturnsEmptyList_DoctorList()
+    {
+      Doctor thisDoctor = new Doctor("Dr. Cookie", "stomach", 12);
+      List<Doctor> docList = new List<Doctor> { thisDoctor };
+      List<Doctor> newList = new List<Doctor> { };
+
+      List<Doctor> result = Doctor.GetAll();
+
+      CollectionAssert.AreEqual(newList, result);
+    }
+
+    // [TestMethod]
+    // public void GetAll_ReturnsDoctors_DoctorList()
+    // {
+    //   //Arrange
+    //   Doctor firstDoctor = new Doctor("Dr. Cookie", "stomach", 12);
+    //
+    //   Doctor secondDoctor = new Doctor("Dr. Cookie", "stomach", 11);
+    //
+    //
+    //   List<Doctor> newList = new List<Doctor> { firstDoctor, secondDoctor };
+    //
+    //   //Act
+    //   List<Doctor> result = Doctor.GetAll();
+    //
+    //   //Assert
+    //   CollectionAssert.AreEqual(newList, result);
+    // }
+
+
   }
 }
