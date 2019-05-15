@@ -136,23 +136,75 @@ namespace DoctorsOffice.Tests
       CollectionAssert.AreEqual(newList, result);
     }
 
+    [TestMethod]
+    public void Save_ReturnsSavedListFromGetAll_DoctorList()
+    {
+      Doctor testDoctor = new Doctor("Dr. Crab", "skin", 4);
+      testDoctor.Save();
+
+      List<Doctor> result = Doctor.GetAll();
+      List<Doctor> ourList = new List<Doctor>{testDoctor};
+
+      CollectionAssert.AreEqual(ourList, result);
+    }
+
+    [TestMethod]
+    public void GetAll2_ReturnsListOfDoctors_DoctorList()
+    {
+      Doctor firstDoctor = new Doctor ("Dr. Cookie", "stomach", 12);
+      firstDoctor.Save();
+
+      Doctor secondDoctor = new Doctor ("Doctor Cookie", "stomach", 11);
+      secondDoctor.Save();
+
+      List<Doctor> newList = new List <Doctor> {firstDoctor, secondDoctor};
+
+      List<Doctor> result = Doctor.GetAll();
+
+      CollectionAssert.AreEqual(newList, result);
+    }
+
+    [TestMethod]
+    public void Save_AssignsDoctorIdToObject_Id()
+    {
+      Doctor testDoctor = new Doctor("Doctor Cookie", "stomach", 11);
+      testDoctor.Save();
+      Doctor savedDoctor = Doctor.GetAll()[0];
+
+      int result = savedDoctor.Id;
+      int testId = testDoctor.Id;
+
+      //Assert
+      Assert.AreEqual(testId, result);
+    }
+
+    [TestMethod]
+    public void Find_ReturnCorrectDoctorFromDatabase_Doctor()
+    {
+      Doctor testDoctor = new Doctor("Doctor Cookie", "stomach", 11);
+      testDoctor.Save();
+      Doctor foundDoctor = Doctor.Find(testDoctor.Id);
+
+      Assert.AreEqual(foundDoctor, testDoctor);
+    }
+
     // [TestMethod]
-    // public void GetAll_ReturnsDoctors_DoctorList()
+    // public void Edit_UpdatesItemInDatabase_String()
     // {
     //   //Arrange
-    //   Doctor firstDoctor = new Doctor("Dr. Cookie", "stomach", 12);
-    //
-    //   Doctor secondDoctor = new Doctor("Dr. Cookie", "stomach", 11);
-    //
-    //
-    //   List<Doctor> newList = new List<Doctor> { firstDoctor, secondDoctor };
+    //   Doctor testDoctor = new Doctor("Doctor Cookie", "stomach", 11);
+    //   testDoctor.Save();
+    //   string newSpecialty = "bones";
     //
     //   //Act
-    //   List<Doctor> result = Doctor.GetAll();
+    //   testDoctor.Edit(newSpecialty);
+    //   string result = Doctor.Find(testDoctor.Id).Specialty;
     //
     //   //Assert
-    //   CollectionAssert.AreEqual(newList, result);
+    //   Assert.AreEqual(newSpecialty, result);
     // }
+
+
 
 
   }
